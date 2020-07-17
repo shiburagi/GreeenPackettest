@@ -19,17 +19,11 @@ class UserListViewModel : ViewModel() {
 
     init {
         val call: Call<ApiResponse?>? = ApiClient.client?.create(UserService::class.java)!!.users()
-        Log.e("User", "call")
-
         call!!.enqueue(object : Callback<ApiResponse?> {
             override fun onFailure(call: Call<ApiResponse?>, t: Throwable) {
-                Log.e("User", t.message)
-
             }
-
             override fun onResponse(call: Call<ApiResponse?>, response: Response<ApiResponse?>) {
                 val apiResponse: ApiResponse? = response.body()
-                Log.e("User", apiResponse?.users?.size.toString())
                 usersLiveData.postValue(apiResponse?.users)
             }
 

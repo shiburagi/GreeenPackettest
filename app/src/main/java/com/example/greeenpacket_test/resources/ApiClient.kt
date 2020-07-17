@@ -3,16 +3,14 @@ package com.example.greeenpacket_test.resources
 import android.util.Log
 import com.example.greeenpacket_test.models.User
 import com.google.gson.*
+import com.google.gson.annotations.SerializedName
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.Exception
 import java.lang.reflect.Field
-import java.lang.reflect.Method
 import java.lang.reflect.Type
-import java.util.*
-import java.util.function.Consumer
 
 
 class ApiClient {
@@ -39,8 +37,8 @@ class ApiClient {
     }
 }
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class UserDeserializer : JsonDeserializer<User?> {
-    @ExperimentalStdlibApi
     @Throws(JsonParseException::class)
     override fun deserialize(
         json: JsonElement,
@@ -48,14 +46,19 @@ class UserDeserializer : JsonDeserializer<User?> {
         context: JsonDeserializationContext?
     ): User {
         val jsonObject: JsonObject = json.asJsonObject;
-
         val user: User = User()
         val fields: Array<Field> = user.javaClass.declaredFields
-
         fields.forEach {
-            if (jsonObject.has(it.name)) {
+            var name: String = it.name;
+            try {
+                val annotation: SerializedName =
+                    it.getAnnotation(SerializedName::class.java) as SerializedName
+                name = annotation.value;
+            } catch (e: Exception) {
+            }
+            if (jsonObject.has(name)) {
                 it.isAccessible = true
-                val jsonValue: JsonElement = jsonObject[it.name]
+                val jsonValue: JsonElement = jsonObject[name]
                 var value: Any? = null;
                 if (jsonValue.isJsonPrimitive) {
                     val jsonPrimitive: JsonPrimitive = jsonValue.asJsonPrimitive
@@ -68,14 +71,15 @@ class UserDeserializer : JsonDeserializer<User?> {
                             value = jsonValue.asNumber
                         }
                     }
+                } else if (jsonValue.isJsonArray) {
+                    value = jsonValue.asJsonArray
                 } else {
                     value = jsonValue
                 }
                 try {
                     it.set(user, value);
-//                    User::class.java.getDeclaredMethod("set${it.name.capitalize(Locale.getDefault())}").invoke(user, value)
                 } catch (e: Exception) {
-                    Log.e("User",e.message)
+                    Log.e("Error", e.message)
                 }
             }
         }

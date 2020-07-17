@@ -1,2 +1,3 @@
+include ':utility'
 include ':app'
 rootProject.name = "GreeenPackettest"
