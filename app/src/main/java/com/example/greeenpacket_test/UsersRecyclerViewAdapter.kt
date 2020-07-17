@@ -1,8 +1,10 @@
 package com.example.greeenpacket_test
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.amulyakhare.textdrawable.TextDrawable
 import com.amulyakhare.textdrawable.util.ColorGenerator
@@ -39,6 +41,14 @@ class UsersRecyclerViewAdapter() :
             .placeholder(drawable)
             .error(drawable)
             .into(holder.itemView.imageView_avatar);
+
+        holder.itemView.setOnClickListener {
+            val bundle: Bundle = Bundle()
+            bundle.putSerializable(UserDetailFragment.USER_KEY, user)
+            holder.itemView.findNavController()
+                .navigate(R.id.action_UserListFragment_to_UserDetailFragment, bundle)
+
+        }
     }
 
     fun setUsers(users: List<User>) {

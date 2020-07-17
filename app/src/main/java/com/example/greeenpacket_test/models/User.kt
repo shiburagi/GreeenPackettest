@@ -2,8 +2,9 @@ package com.example.greeenpacket_test.models
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-class User {
+class User : Serializable{
     @SerializedName("duties")
     @Expose
     var duties: Any? = null

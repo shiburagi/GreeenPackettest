@@ -10,6 +10,7 @@ import android.view.ViewGroup
 class UserDetailFragment : Fragment() {
 
     companion object {
+        const val USER_KEY = "USER"
         fun newInstance() = UserDetailFragment()
     }
 
@@ -27,5 +28,6 @@ class UserDetailFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(UserDetailViewModel::class.java)
         // TODO: Use the ViewModel
     }
+
 
 }

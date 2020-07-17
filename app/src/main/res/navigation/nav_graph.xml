@@ -3,13 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/UserListFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
+        android:id="@+id/UserListFragment"
         android:name="com.example.greeenpacket_test.UserListFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_user_list">
+
+        <action
+            android:id="@+id/action_UserListFragment_to_UserDetailFragment"
+            app:destination="@id/UserDetailFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/UserDetailFragment"
+        android:name="com.example.greeenpacket_test.UserDetailFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_user_detail">
 
     </fragment>
 
