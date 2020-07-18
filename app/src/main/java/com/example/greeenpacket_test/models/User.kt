@@ -1,7 +1,6 @@
 package com.example.greeenpacket_test.models
 
 import android.content.Context
-import android.content.res.Resources
 import com.example.greeenpacket_test.R
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

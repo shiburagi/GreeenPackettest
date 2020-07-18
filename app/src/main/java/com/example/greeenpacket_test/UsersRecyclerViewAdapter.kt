@@ -1,15 +1,11 @@
 package com.example.greeenpacket_test
 
-import android.annotation.SuppressLint
-import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.greeenpacket_test.models.User
-import com.shiburagi.utility.dp
 import com.shiburagi.utility.load
 import kotlinx.android.synthetic.main.view_user.view.*
 
@@ -27,8 +23,7 @@ class UsersRecyclerViewAdapter() :
         return users.size
     }
 
-    @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: UsersRecyclerViewAdapter.UsersViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: UsersViewHolder, position: Int) {
         val user: User = users[position]
         val displayName: String = user.displayName
         holder.itemView.textView_name.text = displayName
@@ -40,7 +35,7 @@ class UsersRecyclerViewAdapter() :
 
         holder.itemView.setOnClickListener {
             val action =
-                UserListFragmentDirections.actionUserListFragmentToUserDetailFragment(user);
+                UserListFragmentDirections.actionUserListFragmentToUserDetailFragment(user)
             holder.itemView.findNavController()
                 .navigate(action)
 
@@ -48,7 +43,7 @@ class UsersRecyclerViewAdapter() :
     }
 
     fun setUsers(users: List<User>) {
-        val size: Int = this.users.size;
+        val size: Int = this.users.size
         this.users.clear()
         notifyItemRangeRemoved(0, size)
         this.users.addAll(users)

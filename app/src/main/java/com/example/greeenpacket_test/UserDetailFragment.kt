@@ -1,7 +1,6 @@
 package com.example.greeenpacket_test
 
 import android.os.Bundle
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.greeenpacket_test.models.User
@@ -41,12 +39,12 @@ class UserDetailFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(UserDetailViewModel::class.java)
 
-        val user: User = args.user;
+        val user: User = args.user
         val superiorUser: User? =
             userListViewModel.getUsers().value?.find { findUser -> findUser.isSuperiorFor(user) }
-        imageView_avatar.load(user.profileImage ?: "", user.displayName);
+        imageView_avatar.load(user.profileImage ?: "", user.displayName)
 
-        layout_team_lead.visibility = if (user.isTeamLead) View.VISIBLE else View.GONE;
+        layout_team_lead.visibility = if (user.isTeamLead) View.VISIBLE else View.GONE
 
         textView_name.text = user.firstName
         textView_age.text = user.displayAge(requireContext())
@@ -66,7 +64,7 @@ class UserDetailFragment : Fragment() {
                 val action =
                     UserDetailFragmentDirections.actionUserDetailFragmentToUserDetailFragment(
                         superiorUser
-                    );
+                    )
                 findNavController()
                     .navigate(action)
 

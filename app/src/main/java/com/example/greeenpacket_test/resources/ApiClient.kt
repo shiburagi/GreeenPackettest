@@ -8,7 +8,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.Exception
 import java.lang.reflect.Field
 import java.lang.reflect.Type
 
@@ -17,7 +16,7 @@ class ApiClient {
 
     companion object {
         private var retrofit: Retrofit? = null
-        private const val BASE_URL = "https://dummy-research.firebaseio.com";
+        private const val BASE_URL = "https://dummy-research.firebaseio.com"
         val client: Retrofit?
             get() {
                 val interceptor = HttpLoggingInterceptor()
@@ -45,21 +44,21 @@ class UserDeserializer : JsonDeserializer<User?> {
         typeOfT: Type?,
         context: JsonDeserializationContext?
     ): User {
-        val jsonObject: JsonObject = json.asJsonObject;
-        val user: User = User()
+        val jsonObject: JsonObject = json.asJsonObject
+        val user = User()
         val fields: Array<Field> = user.javaClass.declaredFields
         fields.forEach {
-            var name: String = it.name;
+            var name: String = it.name
             try {
                 val annotation: SerializedName =
                     it.getAnnotation(SerializedName::class.java) as SerializedName
-                name = annotation.value;
+                name = annotation.value
             } catch (e: Exception) {
             }
             if (jsonObject.has(name)) {
                 it.isAccessible = true
                 val jsonValue: JsonElement = jsonObject[name]
-                var value: Any? = null;
+                var value: Any? = null
                 if (jsonValue.isJsonPrimitive) {
                     val jsonPrimitive: JsonPrimitive = jsonValue.asJsonPrimitive
                     when {
@@ -77,7 +76,7 @@ class UserDeserializer : JsonDeserializer<User?> {
                     value = jsonValue
                 }
                 try {
-                    it.set(user, value);
+                    it.set(user, value)
                 } catch (e: Exception) {
                     Log.e("Error", e.message)
                 }
