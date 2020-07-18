@@ -1,10 +1,13 @@
 package com.example.greeenpacket_test.models
 
+import android.content.Context
+import android.content.res.Resources
+import com.example.greeenpacket_test.R
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-class User : Serializable{
+class User : Serializable {
     @SerializedName("duties")
     @Expose
     var duties: Any? = null
@@ -56,4 +59,23 @@ class User : Serializable{
     @SerializedName("userId")
     @Expose
     var userId: String? = null
+
+    val displayName: String
+        get() = preferredFullName ?: firstName ?: ""
+
+    fun displayAge(context: Context): String {
+        return "$employeeAge ${context.getString(R.string.year_old)}"
+    }
+
+    fun isSuperiorFor(user: User): Boolean {
+        return user != this && ((user.jobTitleName?.equals(
+            this.jobTitleName,
+            true
+        ) ?: false && this.isTeamLead) || (user.isTeamLead && "General Manager".equals(
+            this.jobTitleName,
+            true
+        )))
+    }
+
+
 }

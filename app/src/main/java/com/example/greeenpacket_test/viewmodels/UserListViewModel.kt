@@ -1,6 +1,5 @@
 package com.example.greeenpacket_test.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,24 +13,32 @@ import retrofit2.Response
 
 
 class UserListViewModel : ViewModel() {
-    private val usersLiveData =
-        MutableLiveData<List<User>>()
 
     init {
+
+
+    }
+
+
+    private val users: MutableLiveData<List<User>> by lazy {
+        loadUsers()
+        MutableLiveData<List<User>>()
+    }
+
+    fun getUsers(): LiveData<List<User>> {
+        return users
+    }
+    private fun loadUsers() {
         val call: Call<ApiResponse?>? = ApiClient.client?.create(UserService::class.java)!!.users()
         call!!.enqueue(object : Callback<ApiResponse?> {
             override fun onFailure(call: Call<ApiResponse?>, t: Throwable) {
             }
             override fun onResponse(call: Call<ApiResponse?>, response: Response<ApiResponse?>) {
                 val apiResponse: ApiResponse? = response.body()
-                usersLiveData.postValue(apiResponse?.users)
+                users.postValue(apiResponse?.users)
             }
 
         })
-
     }
-
-    val listenUsers: LiveData<List<User>>
-        get() = usersLiveData
 
 }

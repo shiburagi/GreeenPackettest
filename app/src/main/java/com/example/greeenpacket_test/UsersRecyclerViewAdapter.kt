@@ -1,17 +1,16 @@
 package com.example.greeenpacket_test
 
-import android.os.Bundle
+import android.annotation.SuppressLint
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.amulyakhare.textdrawable.TextDrawable
-import com.amulyakhare.textdrawable.util.ColorGenerator
-import com.bumptech.glide.Glide
 import com.example.greeenpacket_test.models.User
 import com.shiburagi.utility.dp
-import com.shiburagi.utility.px
+import com.shiburagi.utility.load
 import kotlinx.android.synthetic.main.view_user.view.*
 
 class UsersRecyclerViewAdapter() :
@@ -28,25 +27,22 @@ class UsersRecyclerViewAdapter() :
         return users.size
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: UsersRecyclerViewAdapter.UsersViewHolder, position: Int) {
         val user: User = users[position]
-        holder.itemView.textView_name.text = user.firstName
-        holder.itemView.textView_age.text = "${user.employeeAge} years old"
-        val drawable = TextDrawable.builder().beginConfig().width(60.dp).height(60.dp).endConfig()
-            .buildRound(
-                user.firstName?.substring(0, 1) ?: "",
-                ColorGenerator.MATERIAL.getColor(user.firstName)
-            )
-        Glide.with(holder.itemView.context).load(user.profileImage)
-            .placeholder(drawable)
-            .error(drawable)
-            .into(holder.itemView.imageView_avatar);
+        val displayName: String = user.displayName
+        holder.itemView.textView_name.text = displayName
+        holder.itemView.textView_age.text = user.displayAge(holder.itemView.context)
+        holder.itemView.imageView_avatar.load(
+            user.profileImage ?: "",
+            displayName
+        )
 
         holder.itemView.setOnClickListener {
-            val bundle: Bundle = Bundle()
-            bundle.putSerializable(UserDetailFragment.USER_KEY, user)
+            val action =
+                UserListFragmentDirections.actionUserListFragmentToUserDetailFragment(user);
             holder.itemView.findNavController()
-                .navigate(R.id.action_UserListFragment_to_UserDetailFragment, bundle)
+                .navigate(action)
 
         }
     }

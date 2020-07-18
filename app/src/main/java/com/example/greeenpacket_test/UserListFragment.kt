@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,9 +25,9 @@ class UserListFragment : Fragment() {
         fun newInstance() = UserListFragment()
     }
 
-    private lateinit var viewModel: UserListViewModel
     private lateinit var adapter: UsersRecyclerViewAdapter
     private lateinit var viewManager: LinearLayoutManager
+    private val viewModel: UserListViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,8 +50,8 @@ class UserListFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(UserListViewModel::class.java)
-        viewModel.listenUsers.observe(viewLifecycleOwner, Observer {
+//        viewModel = ViewModelProvider(this).get(UserListViewModel::class.java)
+        viewModel.getUsers().observe(viewLifecycleOwner, Observer {
 
 
             activity?.runOnUiThread {

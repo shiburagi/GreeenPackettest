@@ -8,19 +8,27 @@
     <fragment
         android:id="@+id/UserListFragment"
         android:name="com.example.greeenpacket_test.UserListFragment"
-        android:label="@string/first_fragment_label"
+        android:label="@string/home"
         tools:layout="@layout/fragment_user_list">
 
         <action
             android:id="@+id/action_UserListFragment_to_UserDetailFragment"
-            app:destination="@id/UserDetailFragment"/>
+            app:destination="@id/UserDetailFragment">
+            <argument
+                android:name="user"
+                app:argType="com.example.greeenpacket_test.models.User" />
+        </action>
+
+
     </fragment>
     <fragment
         android:id="@+id/UserDetailFragment"
         android:name="com.example.greeenpacket_test.UserDetailFragment"
-        android:label="@string/first_fragment_label"
+        android:label="@string/profile"
         tools:layout="@layout/fragment_user_detail">
-
+        <argument
+            android:name="user"
+            app:argType="com.example.greeenpacket_test.models.User" />
     </fragment>
 
 </navigation>

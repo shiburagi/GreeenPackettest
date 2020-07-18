@@ -1,12 +1,38 @@
 <resources>
-    <string name="app_name">GreeenPackettest</string>
+    <string name="app_name">Green Packet Test</string>
     <string name="action_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="year_old">year old</string>
+    <string name="duties">Duties</string>
+    <string name="job_title">Job Title</string>
+    <string name="email">E-Mail</string>
+    <string name="employee_code">Employee Code</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="team_lead">Team Lead</string>
+    <string name="phone_no">Phone Number</string>
+    <string name="region">Region</string>
+    <string name="user_id">User ID</string>
+    <string name="report_to">Report to</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>
+
+<!--
+ "duties":"",
+ "emailAddress":"romin.k.irani@gmail.com",
+ "employeeAge":"20",
+ "employeeCode":"E1",
+ "firstName":"Romin",
+ "isTeamLead":false,
+ "jobTitleName":"Developer",
+ "lastName":"Irani",
+ "phoneNumber":"408-1234567",
+ "preferredFullName":"Romin Irani",
+ "profileImage":"https://images.unsplash.com/photo-1527082395-e939b847da0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
+ "region":"CA",
+ "userId":"rirani"
+-->
