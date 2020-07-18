@@ -46,12 +46,15 @@ class UserListFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        showLoader()
         viewModel.getUsers().observe(viewLifecycleOwner, Observer {
+            hideLoader()
             adapter.setUsers(it)
-
         })
 
+
         viewModel.getStatus().observe(viewLifecycleOwner, Observer {
+            hideLoader()
             if (!isOnline(requireContext())) {
                 showMessage(
                     R.string.no_internet_connection,
@@ -80,6 +83,7 @@ class UserListFragment : Fragment() {
         )
         fragment.addOnRetryClickListener(View.OnClickListener {
             childFragmentManager.beginTransaction().remove(fragment).commit()
+            showLoader()
             viewModel.loadUsers()
         })
         childFragmentManager.beginTransaction()
@@ -88,6 +92,26 @@ class UserListFragment : Fragment() {
                 fragment
             )
             .commit()
+    }
+
+    var loader: LoaderFragment? = null
+    private fun showLoader() {
+        loader = LoaderFragment.newInstance(
+        )
+
+        childFragmentManager.beginTransaction()
+            .add(
+                R.id.layout_fragment_user_list,
+                loader!!
+            )
+            .commit()
+
+    }
+
+    private fun hideLoader() {
+        if (loader != null)
+            childFragmentManager.beginTransaction().remove(loader!!).commit()
+        loader = null
     }
 
 

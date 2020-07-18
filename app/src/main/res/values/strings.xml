@@ -27,6 +27,7 @@
     <string name="something_went_wrong_message">Something went wrong, we cannot process your request.</string>
     <string name="dont_allow">Oops!</string>
     <string name="dont_allow_message">You\'re not allow to access this information.</string>
+    <string name="more">More</string>
 
 </resources>
 

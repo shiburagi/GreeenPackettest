@@ -21,7 +21,6 @@ private const val ARG_MESSAGE = "message"
 class MessageFragment : Fragment() {
     private var title: String? = null
     private var message: String? = null
-    private val userListViewModel: UserListViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

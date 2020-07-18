@@ -17,13 +17,15 @@ class UserListViewModel : ViewModel() {
 
     private val status: MutableLiveData<Status> = MutableLiveData()
     private val users: MutableLiveData<List<User>> by lazy {
-        loadUsers()
-        MutableLiveData<List<User>>()
+        MutableLiveData<List<User>>().also {
+            loadUsers()
+        }
     }
 
     fun getUsers(): LiveData<List<User>> {
         return users
     }
+
     fun getStatus(): LiveData<Status> {
         return status
     }
