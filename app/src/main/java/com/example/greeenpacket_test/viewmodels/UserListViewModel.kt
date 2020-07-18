@@ -35,7 +35,6 @@ class UserListViewModel : ViewModel() {
         call!!.enqueue(object : Callback<ApiResponse?> {
             override fun onFailure(call: Call<ApiResponse?>, t: Throwable) {
                 status.postValue(Status.FAILED)
-
             }
 
             override fun onResponse(call: Call<ApiResponse?>, response: Response<ApiResponse?>) {

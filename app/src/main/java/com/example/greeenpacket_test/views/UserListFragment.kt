@@ -76,25 +76,29 @@ class UserListFragment : Fragment() {
 
     }
 
+    private var messageFragment: MessageFragment? = null
     private fun showMessage(titleRes: Int, messageRes: Int) {
-        val fragment = MessageFragment.newInstance(
+        if (messageFragment != null)
+            return
+        messageFragment = MessageFragment.newInstance(
             getString(titleRes),
             getString(messageRes)
         )
-        fragment.addOnRetryClickListener(View.OnClickListener {
-            childFragmentManager.beginTransaction().remove(fragment).commit()
+        messageFragment?.addOnRetryClickListener(View.OnClickListener {
+            childFragmentManager.beginTransaction().remove(messageFragment!!).commit()
+            messageFragment = null
             showLoader()
             viewModel.loadUsers()
         })
         childFragmentManager.beginTransaction()
             .add(
                 R.id.layout_fragment_user_list,
-                fragment
+                messageFragment!!
             )
             .commit()
     }
 
-    var loader: LoaderFragment? = null
+    private var loader: LoaderFragment? = null
     private fun showLoader() {
         loader = LoaderFragment.newInstance(
         )
