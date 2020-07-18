@@ -3,6 +3,7 @@ package com.example.greeenpacket_test.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.greeenpacket_test.constants.Status
 import com.example.greeenpacket_test.models.ApiResponse
 import com.example.greeenpacket_test.models.User
 import com.example.greeenpacket_test.resources.ApiClient
@@ -14,6 +15,7 @@ import retrofit2.Response
 
 class UserListViewModel : ViewModel() {
 
+    private val status: MutableLiveData<Status> = MutableLiveData()
     private val users: MutableLiveData<List<User>> by lazy {
         loadUsers()
         MutableLiveData<List<User>>()
@@ -22,16 +24,24 @@ class UserListViewModel : ViewModel() {
     fun getUsers(): LiveData<List<User>> {
         return users
     }
-    private fun loadUsers() {
+    fun getStatus(): LiveData<Status> {
+        return status
+    }
+
+    fun loadUsers() {
         val call: Call<ApiResponse?>? = ApiClient.client?.create(UserService::class.java)!!.users()
         call!!.enqueue(object : Callback<ApiResponse?> {
             override fun onFailure(call: Call<ApiResponse?>, t: Throwable) {
-                users.postValue(users.value)
+                status.postValue(Status.FAILED)
 
             }
+
             override fun onResponse(call: Call<ApiResponse?>, response: Response<ApiResponse?>) {
                 val apiResponse: ApiResponse? = response.body()
-                users.postValue(apiResponse?.users)
+                if (apiResponse?.code == 200L)
+                    users.postValue(apiResponse.users)
+                else
+                    status.postValue(Status.DENIED)
             }
 
         })

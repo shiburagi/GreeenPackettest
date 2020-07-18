@@ -12,8 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.greeenpacket_test.R
-import com.example.greeenpacket_test.UserDetailFragmentArgs
-import com.example.greeenpacket_test.UserDetailFragmentDirections
 import com.example.greeenpacket_test.models.User
 import com.example.greeenpacket_test.viewmodels.UserDetailViewModel
 import com.example.greeenpacket_test.viewmodels.UserListViewModel

@@ -1,7 +1,6 @@
 package com.example.greeenpacket_test.views
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,9 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.greeenpacket_test.R
 import com.example.greeenpacket_test.adapters.UsersRecyclerViewAdapter
+import com.example.greeenpacket_test.constants.Status
 import com.example.greeenpacket_test.viewmodels.UserListViewModel
+import com.shiburagi.utility.isOnline
 import kotlinx.android.synthetic.main.fragment_user_list.*
 
 class UserListFragment : Fragment() {
@@ -45,15 +46,49 @@ class UserListFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-//        viewModel = ViewModelProvider(this).get(UserListViewModel::class.java)
         viewModel.getUsers().observe(viewLifecycleOwner, Observer {
+            adapter.setUsers(it)
 
+        })
 
-            activity?.runOnUiThread {
-                Log.e("User Frag", it.size.toString())
-                adapter.setUsers(it)
+        viewModel.getStatus().observe(viewLifecycleOwner, Observer {
+            if (!isOnline(requireContext())) {
+                showMessage(
+                    R.string.no_internet_connection,
+                    R.string.no_internet_connection_message
+                )
+            } else if (it == Status.FAILED) {
+                showMessage(
+                    R.string.something_went_wrong,
+                    R.string.something_went_wrong_message
+                )
+            } else if (it == Status.DENIED) {
+                showMessage(
+                    R.string.dont_allow,
+                    R.string.dont_allow_message
+                )
             }
         })
+
+
     }
+
+    private fun showMessage(titleRes: Int, messageRes: Int) {
+        val fragment = MessageFragment.newInstance(
+            getString(titleRes),
+            getString(messageRes)
+        )
+        fragment.addOnRetryClickListener(View.OnClickListener {
+            childFragmentManager.beginTransaction().remove(fragment).commit()
+            viewModel.loadUsers()
+        })
+        childFragmentManager.beginTransaction()
+            .add(
+                R.id.layout_fragment_user_list,
+                fragment
+            )
+            .commit()
+    }
+
 
 }

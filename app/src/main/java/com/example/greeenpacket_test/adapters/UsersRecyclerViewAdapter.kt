@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.greeenpacket_test.R
-import com.example.greeenpacket_test.UserListFragmentDirections
 import com.example.greeenpacket_test.models.User
+import com.example.greeenpacket_test.views.UserListFragmentDirections
 import com.shiburagi.utility.load
 import kotlinx.android.synthetic.main.view_user.view.*
 

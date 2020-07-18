@@ -4,4 +4,5 @@ enum class Status{
     NO_INTERNET,
     FAILED,
     Success,
+    DENIED,
 }
