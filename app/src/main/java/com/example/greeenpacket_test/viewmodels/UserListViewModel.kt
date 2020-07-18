@@ -14,12 +14,6 @@ import retrofit2.Response
 
 class UserListViewModel : ViewModel() {
 
-    init {
-
-
-    }
-
-
     private val users: MutableLiveData<List<User>> by lazy {
         loadUsers()
         MutableLiveData<List<User>>()
@@ -32,6 +26,8 @@ class UserListViewModel : ViewModel() {
         val call: Call<ApiResponse?>? = ApiClient.client?.create(UserService::class.java)!!.users()
         call!!.enqueue(object : Callback<ApiResponse?> {
             override fun onFailure(call: Call<ApiResponse?>, t: Throwable) {
+                users.postValue(users.value)
+
             }
             override fun onResponse(call: Call<ApiResponse?>, response: Response<ApiResponse?>) {
                 val apiResponse: ApiResponse? = response.body()
