@@ -1,8 +1,7 @@
-package com.example.greeenpacket_test
+package com.example.greeenpacket_test.viewmodels
 
 import androidx.lifecycle.ViewModel
 import com.google.gson.JsonArray
-import kotlinx.android.synthetic.main.fragment_user_detail.*
 import java.lang.StringBuilder
 
 class UserDetailViewModel : ViewModel() {

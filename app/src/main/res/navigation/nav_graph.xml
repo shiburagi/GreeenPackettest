@@ -29,6 +29,13 @@
         <argument
             android:name="user"
             app:argType="com.example.greeenpacket_test.models.User" />
+        <action
+            android:id="@+id/action_UserDetailFragment_to_UserDetailFragment"
+            app:destination="@id/UserDetailFragment">
+            <argument
+                android:name="user"
+                app:argType="com.example.greeenpacket_test.models.User" />
+        </action>
     </fragment>
 
 </navigation>
