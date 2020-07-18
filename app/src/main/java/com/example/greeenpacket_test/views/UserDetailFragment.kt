@@ -1,4 +1,4 @@
-package com.example.greeenpacket_test
+package com.example.greeenpacket_test.views
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +11,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.greeenpacket_test.R
+import com.example.greeenpacket_test.UserDetailFragmentArgs
+import com.example.greeenpacket_test.UserDetailFragmentDirections
 import com.example.greeenpacket_test.models.User
 import com.example.greeenpacket_test.viewmodels.UserDetailViewModel
 import com.example.greeenpacket_test.viewmodels.UserListViewModel
@@ -20,7 +23,8 @@ import kotlinx.android.synthetic.main.fragment_user_detail.*
 class UserDetailFragment : Fragment() {
 
     companion object {
-        fun newInstance() = UserDetailFragment()
+        fun newInstance() =
+            UserDetailFragment()
     }
 
     private val args: UserDetailFragmentArgs by navArgs()

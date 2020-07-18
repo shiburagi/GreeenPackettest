@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/UserListFragment"
-        android:name="com.example.greeenpacket_test.UserListFragment"
+        android:name="com.example.greeenpacket_test.views.UserListFragment"
         android:label="@string/home"
         tools:layout="@layout/fragment_user_list">
 
@@ -23,7 +23,7 @@
     </fragment>
     <fragment
         android:id="@+id/UserDetailFragment"
-        android:name="com.example.greeenpacket_test.UserDetailFragment"
+        android:name="com.example.greeenpacket_test.views.UserDetailFragment"
         android:label="@string/profile"
         tools:layout="@layout/fragment_user_detail">
         <argument

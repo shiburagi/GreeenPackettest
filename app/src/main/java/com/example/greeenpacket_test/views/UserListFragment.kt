@@ -1,4 +1,4 @@
-package com.example.greeenpacket_test
+package com.example.greeenpacket_test.views
 
 import android.os.Bundle
 import android.util.Log
@@ -9,12 +9,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.greeenpacket_test.R
+import com.example.greeenpacket_test.adapters.UsersRecyclerViewAdapter
 import com.example.greeenpacket_test.viewmodels.UserListViewModel
 import kotlinx.android.synthetic.main.fragment_user_list.*
 
 class UserListFragment : Fragment() {
     companion object {
-        fun newInstance() = UserListFragment()
+        fun newInstance() =
+            UserListFragment()
     }
 
     private lateinit var adapter: UsersRecyclerViewAdapter
@@ -31,7 +34,8 @@ class UserListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = UsersRecyclerViewAdapter()
+        adapter =
+            UsersRecyclerViewAdapter()
         viewManager = LinearLayoutManager(context)
         viewManager.orientation = LinearLayoutManager.VERTICAL
         recycler_users.setHasFixedSize(true)

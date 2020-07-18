@@ -1,10 +1,12 @@
-package com.example.greeenpacket_test
+package com.example.greeenpacket_test.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.greeenpacket_test.R
+import com.example.greeenpacket_test.UserListFragmentDirections
 import com.example.greeenpacket_test.models.User
 import com.shiburagi.utility.load
 import kotlinx.android.synthetic.main.view_user.view.*
@@ -16,7 +18,9 @@ class UsersRecyclerViewAdapter() :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsersViewHolder {
         val view: View =
             LayoutInflater.from(parent.context).inflate(R.layout.view_user, parent, false)
-        return UsersViewHolder(view)
+        return UsersViewHolder(
+            view
+        )
     }
 
     override fun getItemCount(): Int {
@@ -35,7 +39,9 @@ class UsersRecyclerViewAdapter() :
 
         holder.itemView.setOnClickListener {
             val action =
-                UserListFragmentDirections.actionUserListFragmentToUserDetailFragment(user)
+                UserListFragmentDirections.actionUserListFragmentToUserDetailFragment(
+                    user
+                )
             holder.itemView.findNavController()
                 .navigate(action)
 
