@@ -28,6 +28,8 @@ class UserDetailFragment : Fragment() {
     private val args: UserDetailFragmentArgs by navArgs()
 
     private lateinit var viewModel: UserDetailViewModel
+    private lateinit var user: User
+    private var superiorUser: User? = null
     private val userListViewModel: UserListViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -40,12 +42,14 @@ class UserDetailFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(UserDetailViewModel::class.java)
-
-        val user: User = args.user
-        val superiorUser: User? =
+        user = args.user
+        superiorUser =
             userListViewModel.getUsers().value?.find { findUser -> findUser.isSuperiorFor(user) }
-        imageView_avatar.load(user.profileImage ?: "", user.displayName)
+        populateData()
+    }
 
+    private fun populateData() {
+        imageView_avatar.load(user.profileImage ?: "", user.displayName)
         layout_team_lead.visibility = if (user.isTeamLead) View.VISIBLE else View.GONE
 
         textView_name.text = user.firstName
@@ -65,13 +69,12 @@ class UserDetailFragment : Fragment() {
             textView_report_to.setOnClickListener {
                 val action =
                     UserDetailFragmentDirections.actionUserDetailFragmentToUserDetailFragment(
-                        superiorUser
+                        superiorUser!!
                     )
                 findNavController()
                     .navigate(action)
 
             }
-
     }
 
     private fun setField(view: EditText, text: String?) {

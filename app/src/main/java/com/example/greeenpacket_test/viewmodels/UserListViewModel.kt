@@ -34,14 +34,17 @@ class UserListViewModel : ViewModel() {
         val call: Call<ApiResponse?>? = ApiClient.client?.create(UserService::class.java)!!.users()
         call!!.enqueue(object : Callback<ApiResponse?> {
             override fun onFailure(call: Call<ApiResponse?>, t: Throwable) {
-                status.postValue(Status.FAILED)
+                if (users.value?.isEmpty() != false)
+                    status.postValue(Status.FAILED)
             }
 
             override fun onResponse(call: Call<ApiResponse?>, response: Response<ApiResponse?>) {
                 val apiResponse: ApiResponse? = response.body()
-                if (apiResponse?.code == 200L)
+                if (apiResponse?.code == 200L) {
                     users.postValue(apiResponse.users)
-                else
+                    status.postValue(Status.SUCCESS)
+
+                } else
                     status.postValue(Status.DENIED)
             }
 

@@ -48,11 +48,8 @@ class UserListFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         showLoader()
         viewModel.getUsers().observe(viewLifecycleOwner, Observer {
-            hideLoader()
             adapter.setUsers(it)
         })
-
-
         viewModel.getStatus().observe(viewLifecycleOwner, Observer {
             hideLoader()
             if (!isOnline(requireContext())) {
