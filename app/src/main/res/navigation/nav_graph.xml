@@ -13,7 +13,8 @@
 
         <action
             android:id="@+id/action_UserListFragment_to_UserDetailFragment"
-            app:destination="@id/UserDetailFragment">
+            app:destination="@id/UserDetailFragment"
+            app:launchSingleTop="false">
             <argument
                 android:name="user"
                 app:argType="com.example.greeenpacket_test.models.User" />

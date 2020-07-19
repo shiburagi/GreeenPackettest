@@ -1,20 +1,24 @@
 package com.example.greeenpacket_test.views
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.transition.TransitionInflater
 import com.example.greeenpacket_test.R
 import com.example.greeenpacket_test.models.User
 import com.example.greeenpacket_test.viewmodels.UserListViewModel
 import com.shiburagi.utility.loadAvatar
 import kotlinx.android.synthetic.main.fragment_user_detail.*
+import kotlinx.android.synthetic.main.fragment_user_detail.view.*
 
 
 /**
@@ -35,16 +39,28 @@ class UserDetailFragment : Fragment() {
     private lateinit var user: User
     private var superiorUser: User? = null
 
+    @SuppressLint("InlinedApi")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_user_detail, container, false)
+        user = args.user
+
+        val view = inflater.inflate(R.layout.fragment_user_detail, container, false)
+        ViewCompat.setTransitionName(view.imageView_avatar, user.userId)
+
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        user = args.user
         superiorUser = userListViewModel.getSuperiorFor(user)
         populateData()
         initializeInteraction()

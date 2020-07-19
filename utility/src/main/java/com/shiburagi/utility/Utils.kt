@@ -9,6 +9,7 @@ import com.amulyakhare.textdrawable.util.ColorGenerator
 import com.bumptech.glide.Glide
 import kotlin.math.pow
 
+
 fun isOnline(context: Context): Boolean {
     val connectivityManager =
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -30,12 +31,11 @@ val Double.byte: Double
 fun ImageView.loadAvatar(url: String, placeholder: String) {
     val drawable = TextDrawable.builder().beginConfig().width(60.dp).height(60.dp).endConfig()
         .buildRound(
-            placeholder.substring(0, 1) ?: "",
+            placeholder.substring(0, 1),
             ColorGenerator.MATERIAL.getColor(placeholder)
         )
     Glide.with(context).load(url)
         .placeholder(drawable)
         .error(drawable)
-        .into(this);
+        .into(this)
 }
-

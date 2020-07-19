@@ -1,14 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout_fragment_user_list"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_users"
+    <data>
+
+        <import type="com.example.greeenpacket_test.viewmodels.UserListViewModel" />
+
+        <import type="com.example.greeenpacket_test.constants.Status" />
+
+        <import type="androidx.lifecycle.LiveData" />
+
+        <variable
+            name="retry"
+            type="android.view.View.OnClickListener" />
+        <variable
+            name="status"
+            type="LiveData&lt;Status>" />
+
+    </data>
+
+    <FrameLayout
+        android:id="@+id/layout_fragment_user_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical"
-        tools:context=".views.UserListFragment" />
-</FrameLayout>
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_users"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/view_user" />
+
+        <com.example.greeenpacket_test.components.MessageView
+            android:layout_gravity="center"
+            show="@{status!=null &amp;&amp; status!=Status.SUCCESS}"
+            status="@{status}"
+            retry="@{retry}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ProgressBar
+            show="@{status==null}"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center" />
+    </FrameLayout>
+
+</layout>

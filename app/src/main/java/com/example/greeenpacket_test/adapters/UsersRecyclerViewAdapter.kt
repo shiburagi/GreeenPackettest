@@ -1,71 +1,91 @@
 package com.example.greeenpacket_test.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.core.view.ViewCompat
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.greeenpacket_test.R
+import com.example.greeenpacket_test.databinding.ViewUserBinding
 import com.example.greeenpacket_test.models.User
 import com.example.greeenpacket_test.views.UserListFragmentDirections
-import com.shiburagi.utility.loadAvatar
 import kotlinx.android.synthetic.main.view_user.view.*
 
 /**
  * a class to handle [RecyclerView] adapter
  */
 class UsersRecyclerViewAdapter() :
-    RecyclerView.Adapter<UsersRecyclerViewAdapter.UsersViewHolder>() {
+    ListAdapter<User, UsersRecyclerViewAdapter.UsersViewHolder>(UserDiffCallback()) {
 
-    private val users: ArrayList<User> = ArrayList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsersViewHolder {
-        val view: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.view_user, parent, false)
         return UsersViewHolder(
-            view
+            DataBindingUtil.inflate(
+                LayoutInflater.from(parent.context),
+                R.layout.view_user, parent, false
+            )
         )
-    }
-
-    override fun getItemCount(): Int {
-        return users.size
     }
 
     /**
      * assign value and event on view on given position
      */
     override fun onBindViewHolder(holder: UsersViewHolder, position: Int) {
-        val user: User = users[position]
-        val displayName: String = user.displayName
-        holder.itemView.textView_name.text = displayName
-        holder.itemView.textView_age.text = user.displayAge(holder.itemView.context)
-        holder.itemView.imageView_avatar.loadAvatar(
-            user.profileImage ?: "",
-            displayName
-        )
+        getItem(position).let { user ->
+            with(holder) {
+                val transitionName = user.userId ?: ""
+                ViewCompat.setTransitionName(holder.avatarView, transitionName)
+                bind(user, View.OnClickListener {
+                    val action =
+                        UserListFragmentDirections.actionUserListFragmentToUserDetailFragment(
+                            user
+                        )
+                    holder.itemView.findNavController()
+                        .navigate(
+                            action,
+                            FragmentNavigatorExtras(holder.avatarView to transitionName)
+                        )
+                })
 
-        holder.itemView.setOnClickListener {
-            val action =
-                UserListFragmentDirections.actionUserListFragmentToUserDetailFragment(
-                    user
-                )
-            holder.itemView.findNavController()
-                .navigate(action)
+            }
 
         }
     }
 
-    /**
-     * Update [User] list and trigger notify
-     */
-    fun setUsers(users: List<User>) {
-        val size: Int = this.users.size
-        this.users.clear()
-        notifyItemRangeRemoved(0, size)
-        this.users.addAll(users)
-        notifyItemRangeInserted(0, this.users.size)
+
+    class UsersViewHolder(private val binding: ViewUserBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        val context: Context = binding.root.context
+        val avatarView: ImageView = binding.root.imageView_avatar
+        val nameView: TextView = binding.root.textView_name
+        val ageView: TextView = binding.root.textView_age
+        fun bind(value: User, listener: View.OnClickListener) {
+            ViewCompat.setTransitionName(avatarView, "${value.userId}")
+            with(binding) {
+                this.user = value
+                this.clickListener = listener
+                executePendingBindings()
+            }
+        }
+    }
+}
+
+private class UserDiffCallback : DiffUtil.ItemCallback<User>() {
+
+    override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
+        return oldItem.userId == newItem.userId
     }
 
-    class UsersViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
+    override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
+        return oldItem.userId == newItem.userId
+                && oldItem.employeeCode.toString() == oldItem.employeeCode.toString()
+                && oldItem.duties.toString() == oldItem.duties.toString()
     }
 }

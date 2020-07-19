@@ -43,6 +43,7 @@ class UserListViewModel : ViewModel() {
      * retrieve the users data from BE and trigger [Status] and [User] list event
      */
     fun loadUsers() {
+        status.postValue(null)
         val call: Call<ApiResponse?>? = ApiClient.client?.create(UserService::class.java)!!.users()
         call!!.enqueue(object : Callback<ApiResponse?> {
             override fun onFailure(call: Call<ApiResponse?>, t: Throwable) {
