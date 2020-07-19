@@ -67,7 +67,9 @@ class UserDetailFragment : Fragment() {
 
             }
 
-        ViewCompat.setTransitionName(binding.root.imageView_avatar, user.userId)
+        ViewCompat.setTransitionName(binding.root.imageView_avatar, "image_${user.userId}")
+        ViewCompat.setTransitionName(binding.root.textView_name, "name_${user.userId}")
+        ViewCompat.setTransitionName(binding.root.textView_age, "age_${user.userId}")
 
         return binding.root
     }

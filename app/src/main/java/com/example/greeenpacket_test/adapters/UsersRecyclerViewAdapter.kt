@@ -42,17 +42,7 @@ class UsersRecyclerViewAdapter() :
             with(holder) {
                 val transitionName = user.userId ?: ""
                 ViewCompat.setTransitionName(holder.avatarView, transitionName)
-                bind(user, View.OnClickListener {
-                    val action =
-                        UserListFragmentDirections.actionUserListFragmentToUserDetailFragment(
-                            user
-                        )
-                    holder.itemView.findNavController()
-                        .navigate(
-                            action,
-                            FragmentNavigatorExtras(holder.avatarView to transitionName)
-                        )
-                })
+                bind(user)
 
             }
 
@@ -64,13 +54,32 @@ class UsersRecyclerViewAdapter() :
         RecyclerView.ViewHolder(binding.root) {
         val context: Context = binding.root.context
         val avatarView: ImageView = binding.root.imageView_avatar
-        val nameView: TextView = binding.root.textView_name
-        val ageView: TextView = binding.root.textView_age
-        fun bind(value: User, listener: View.OnClickListener) {
-            ViewCompat.setTransitionName(avatarView, "${value.userId}")
+        private val nameView: TextView = binding.root.textView_name
+        private val ageView: TextView = binding.root.textView_age
+
+        fun bind(value: User) {
+            ViewCompat.setTransitionName(avatarView, "image_${value.userId}")
+            ViewCompat.setTransitionName(nameView, "name_${value.userId}")
+            ViewCompat.setTransitionName(ageView, "age_${value.userId}")
             with(binding) {
                 this.user = value
-                this.clickListener = listener
+                this.clickListener = View.OnClickListener {
+                    val action =
+                        UserListFragmentDirections.actionUserListFragmentToUserDetailFragment(
+                            user!!
+                        )
+                    itemView.findNavController()
+                        .navigate(
+                            action,
+                            FragmentNavigatorExtras(
+                                avatarView to ViewCompat.getTransitionName(
+                                    avatarView
+                                )!!,
+                                nameView to ViewCompat.getTransitionName(nameView)!!,
+                                ageView to ViewCompat.getTransitionName(ageView)!!
+                            )
+                        )
+                }
                 executePendingBindings()
             }
         }
