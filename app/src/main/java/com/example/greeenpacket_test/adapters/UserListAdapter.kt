@@ -22,8 +22,8 @@ import kotlinx.android.synthetic.main.view_user.view.*
 /**
  * a class to handle [RecyclerView] adapter
  */
-class UsersRecyclerViewAdapter() :
-    ListAdapter<User, UsersRecyclerViewAdapter.UsersViewHolder>(UserDiffCallback()) {
+class UserListAdapter() :
+    ListAdapter<User, UserListAdapter.UsersViewHolder>(UserDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsersViewHolder {
         return UsersViewHolder(

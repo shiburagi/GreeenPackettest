@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.example.greeenpacket_test.R
-import com.example.greeenpacket_test.adapters.UsersRecyclerViewAdapter
+import com.example.greeenpacket_test.adapters.UserListAdapter
 import com.example.greeenpacket_test.constants.Status
 import com.example.greeenpacket_test.databinding.FragmentUserListBinding
 import com.example.greeenpacket_test.models.User
@@ -50,7 +50,7 @@ class UserListFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val adapter =
-            UsersRecyclerViewAdapter()
+            UserListAdapter()
         recycler_users.apply {
             this.adapter = adapter
             postponeEnterTransition()
@@ -67,7 +67,7 @@ class UserListFragment : Fragment() {
     /**
      * a method to listen any changes on [Status] and list of [User]
      */
-    private fun startListen(adapter:UsersRecyclerViewAdapter) {
+    private fun startListen(adapter:UserListAdapter) {
         // Listen to list of user event
         viewModel.getUsers().observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
