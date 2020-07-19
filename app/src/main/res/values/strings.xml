@@ -6,6 +6,7 @@
     <string name="previous">Previous</string>
     <string name="home">Home</string>
     <string name="profile">Profile</string>
+    <string name="years_old">years old</string>
     <string name="year_old">year old</string>
     <string name="duties">Duties</string>
     <string name="job_title">Job Title</string>
@@ -18,8 +19,6 @@
     <string name="region">Region</string>
     <string name="user_id">User ID</string>
     <string name="report_to">Report to</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_internet_connection">No internet connection</string>
     <string name="no_internet_connection_message">Please check your internet connect and please try again.</string>
     <string name="retry">Retry</string>

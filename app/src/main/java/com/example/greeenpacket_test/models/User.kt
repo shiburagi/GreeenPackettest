@@ -74,7 +74,8 @@ class User : Serializable {
      * @param context [Context]
      */
     fun displayAge(context: Context): String {
-        return "$employeeAge ${context.getString(R.string.year_old)}"
+        return "$employeeAge ${if (employeeAge == "1")
+            context.getString(R.string.year_old) else context.getString(R.string.years_old)}"
     }
 
     /**
