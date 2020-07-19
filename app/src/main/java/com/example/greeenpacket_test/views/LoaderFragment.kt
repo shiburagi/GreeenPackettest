@@ -15,7 +15,7 @@ private const val ARG_TITLE = "title"
 private const val ARG_MESSAGE = "message"
 
 /**
- * A simple [Fragment] subclass.
+ * A [Fragment] subclass.
  * Use the [LoaderFragment.newInstance] factory method to
  * create an instance of this fragment.
  */

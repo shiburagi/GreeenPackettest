@@ -8,16 +8,20 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.greeenpacket_test.R
 import com.example.greeenpacket_test.models.User
-import com.example.greeenpacket_test.viewmodels.UserDetailViewModel
 import com.example.greeenpacket_test.viewmodels.UserListViewModel
 import com.shiburagi.utility.load
 import kotlinx.android.synthetic.main.fragment_user_detail.*
 
+
+/**
+ * A [Fragment] subclass.
+ * Use the [UserDetailFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
 class UserDetailFragment : Fragment() {
 
     companion object {
@@ -26,11 +30,10 @@ class UserDetailFragment : Fragment() {
     }
 
     private val args: UserDetailFragmentArgs by navArgs()
+    private val userListViewModel: UserListViewModel by activityViewModels()
 
-    private lateinit var viewModel: UserDetailViewModel
     private lateinit var user: User
     private var superiorUser: User? = null
-    private val userListViewModel: UserListViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,13 +44,15 @@ class UserDetailFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(UserDetailViewModel::class.java)
         user = args.user
-        superiorUser =
-            userListViewModel.getUsers().value?.find { findUser -> findUser.isSuperiorFor(user) }
+        superiorUser = userListViewModel.getSuperiorFor(user)
         populateData()
+        initializeInteraction()
     }
 
+    /**
+     * a method to assign value on all textField and editText
+     */
     private fun populateData() {
         imageView_avatar.load(user.profileImage ?: "", user.displayName)
         layout_team_lead.visibility = if (user.isTeamLead) View.VISIBLE else View.GONE
@@ -63,8 +68,15 @@ class UserDetailFragment : Fragment() {
         setField(textView_region, user.region)
         setField(textView_user_id, user.userId)
 
-        setField(textView_duties, viewModel.parseDuties(user.duties))
+        setField(textView_duties, user.duties?.toString())
         setField(textView_report_to, superiorUser?.displayName)
+
+    }
+
+    /**
+     * a method to provide interface/listener on click event
+     */
+    private fun initializeInteraction() {
         if (superiorUser != null)
             textView_report_to.setOnClickListener {
                 val action =
@@ -77,6 +89,11 @@ class UserDetailFragment : Fragment() {
             }
     }
 
+    /**
+     * a method to set [EditText]'s text and hide the view if the given text is empty
+     * @param view [EditText] component
+     * @param text String to assign as text value on [EditText]
+     */
     private fun setField(view: EditText, text: String?) {
         if (text?.isEmpty() != false) {
             (view.parent as View).visibility = View.GONE
@@ -86,6 +103,11 @@ class UserDetailFragment : Fragment() {
         }
     }
 
+    /**
+     * a method to set [TextView]'s text and hide the view if the given text is empty
+     * @param view EditText component
+     * @param text String to assign as text value on [TextView]
+     */
     private fun setField(view: TextView, text: String?) {
         if (text?.isEmpty() != false) {
             view.visibility = View.GONE

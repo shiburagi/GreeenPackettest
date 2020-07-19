@@ -14,7 +14,7 @@ private const val ARG_TITLE = "title"
 private const val ARG_MESSAGE = "message"
 
 /**
- * A simple [Fragment] subclass.
+ * A [Fragment] subclass.
  * Use the [MessageFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
@@ -39,6 +39,7 @@ class MessageFragment : Fragment() {
     }
 
     private var onRetryClickListener: View.OnClickListener? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         textView_title.text = title
@@ -48,6 +49,10 @@ class MessageFragment : Fragment() {
         }
     }
 
+    /**
+     * a method to pass [View.OnClickListener]
+     * @param onClickListener [View.OnClickListener]
+     */
     fun addOnRetryClickListener(onClickListener: View.OnClickListener) {
         this.onRetryClickListener = onClickListener
     }
@@ -57,8 +62,8 @@ class MessageFragment : Fragment() {
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param title Parameter 1.
-         * @param message Parameter 2.
+         * @param title [String] for title.
+         * @param message [String] for message.
          * @return A new instance of fragment MessageFragment.
          */
         @JvmStatic

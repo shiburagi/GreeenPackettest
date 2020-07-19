@@ -59,13 +59,28 @@ class User : Serializable {
     @Expose
     var userId: String? = null
 
+    /**
+     * display name for this user
+     * if preferFullName is not empty,
+     * -> return preferredFullName
+     * otherwise,
+     * => return firstName and lastName
+     */
     val displayName: String
-        get() = preferredFullName ?: firstName ?: ""
+        get() = preferredFullName ?: "$firstName ${lastName ?: ""}" ?: ""
 
+    /**
+     * a method display the age in String format
+     * @param context [Context]
+     */
     fun displayAge(context: Context): String {
         return "$employeeAge ${context.getString(R.string.year_old)}"
     }
 
+    /**
+     * a method to check whether this user is the superior for the given user
+     * @param user [User] model
+     */
     fun isSuperiorFor(user: User): Boolean {
         return user != this && ((user.jobTitleName?.equals(
             this.jobTitleName,

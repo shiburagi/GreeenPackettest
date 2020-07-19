@@ -11,10 +11,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.greeenpacket_test.R
 import com.example.greeenpacket_test.adapters.UsersRecyclerViewAdapter
 import com.example.greeenpacket_test.constants.Status
+import com.example.greeenpacket_test.models.User
 import com.example.greeenpacket_test.viewmodels.UserListViewModel
 import com.shiburagi.utility.isOnline
 import kotlinx.android.synthetic.main.fragment_user_list.*
 
+
+/**
+ * A [Fragment] subclass.
+ * Use the [UserListFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
 class UserListFragment : Fragment() {
     companion object {
         fun newInstance() =
@@ -46,31 +53,38 @@ class UserListFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        startListen()
+    }
+
+    /**
+     * a method to listen any changes on [Status] and list of [User]
+     */
+    private fun startListen() {
         showLoader()
+        // Listen to list of user event
         viewModel.getUsers().observe(viewLifecycleOwner, Observer {
             adapter.setUsers(it)
         })
+        // Listen to status event
         viewModel.getStatus().observe(viewLifecycleOwner, Observer {
             hideLoader()
-            if (!isOnline(requireContext())) {
+            if (!isOnline(requireContext())) { // no internet connection
                 showMessage(
                     R.string.no_internet_connection,
                     R.string.no_internet_connection_message
                 )
-            } else if (it == Status.FAILED) {
+            } else if (it == Status.FAILED) { // fail to complete the http request
                 showMessage(
                     R.string.something_went_wrong,
                     R.string.something_went_wrong_message
                 )
-            } else if (it == Status.DENIED) {
+            } else if (it == Status.DENIED) { // http status code not return 200
                 showMessage(
                     R.string.dont_allow,
                     R.string.dont_allow_message
                 )
             }
         })
-
-
     }
 
     private var messageFragment: MessageFragment? = null

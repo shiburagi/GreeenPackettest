@@ -12,7 +12,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
+/**
+ * Class to maintain all business logic for [User] List and
+ * any logic needed by UserList View to interact with User data
+ */
 class UserListViewModel : ViewModel() {
 
     private val status: MutableLiveData<Status> = MutableLiveData()
@@ -22,14 +25,23 @@ class UserListViewModel : ViewModel() {
         }
     }
 
+    /**
+     * access list of [User]
+     */
     fun getUsers(): LiveData<List<User>> {
         return users
     }
 
+    /**
+     * access [Status]
+     */
     fun getStatus(): LiveData<Status> {
         return status
     }
 
+    /**
+     * retrieve the users data from BE and trigger [Status] and [User] list event
+     */
     fun loadUsers() {
         val call: Call<ApiResponse?>? = ApiClient.client?.create(UserService::class.java)!!.users()
         call!!.enqueue(object : Callback<ApiResponse?> {
@@ -49,6 +61,17 @@ class UserListViewModel : ViewModel() {
             }
 
         })
+    }
+
+    /**
+     * a method to find the superior for given user,
+     * if the found a superior from the [User] list,
+     * -> return [User]
+     * Otherwise,
+     * -> return null
+     */
+    fun getSuperiorFor(user: User): User? {
+        return users.value?.find { findUser -> findUser.isSuperiorFor(user) }
     }
 
 }
