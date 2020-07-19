@@ -5,8 +5,6 @@
 
     <data>
 
-        <import type="com.example.greeenpacket_test.viewmodels.UserListViewModel" />
-
         <import type="com.example.greeenpacket_test.constants.Status" />
 
         <import type="androidx.lifecycle.LiveData" />
@@ -14,6 +12,7 @@
         <variable
             name="retry"
             type="android.view.View.OnClickListener" />
+
         <variable
             name="status"
             type="LiveData&lt;Status>" />
@@ -34,12 +33,12 @@
             tools:listitem="@layout/view_user" />
 
         <com.example.greeenpacket_test.components.MessageView
-            android:layout_gravity="center"
+            retry="@{retry}"
             show="@{status!=null &amp;&amp; status!=Status.SUCCESS}"
             status="@{status}"
-            retry="@{retry}"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
 
         <ProgressBar
             show="@{status==null}"
