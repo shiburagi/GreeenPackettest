@@ -11,6 +11,9 @@ import com.example.greeenpacket_test.views.UserListFragmentDirections
 import com.shiburagi.utility.load
 import kotlinx.android.synthetic.main.view_user.view.*
 
+/**
+ * a class to handle [RecyclerView] adapter
+ */
 class UsersRecyclerViewAdapter() :
     RecyclerView.Adapter<UsersRecyclerViewAdapter.UsersViewHolder>() {
 
@@ -27,6 +30,9 @@ class UsersRecyclerViewAdapter() :
         return users.size
     }
 
+    /**
+     * assign value and event on view on given position
+     */
     override fun onBindViewHolder(holder: UsersViewHolder, position: Int) {
         val user: User = users[position]
         val displayName: String = user.displayName
@@ -48,6 +54,9 @@ class UsersRecyclerViewAdapter() :
         }
     }
 
+    /**
+     * Update [User] list and trigger notify
+     */
     fun setUsers(users: List<User>) {
         val size: Int = this.users.size
         this.users.clear()
