@@ -28,6 +28,7 @@
     <string name="dont_allow_message">You\'re not allow to access this information.</string>
     <string name="more">More</string>
     <string name="avatar">avatar</string>
+    <string name="preferredFullName">Preferred Full Name</string>
 
 </resources>
 

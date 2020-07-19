@@ -160,6 +160,29 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
+                    android:hint="@string/preferredFullName"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textView_preferred_full_name"
+                        value="@{user.preferredFullName}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:focusable="false"
+                        android:gravity="top|start"
+                        android:inputType="textMultiLine"
+                        android:maxLines="100"
+                        android:minLines="1"
+                        android:scrollbars="vertical"
+                        android:singleLine="false"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
                     android:hint="@string/employee_code"
                     app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
 
