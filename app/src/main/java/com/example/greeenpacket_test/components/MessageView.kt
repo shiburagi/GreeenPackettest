@@ -14,9 +14,7 @@ class MessageView :
 
     constructor(
         context: Context
-    ) : super(context){
-
-    }
+    ) : super(context)
 
     constructor(
         context: Context,
