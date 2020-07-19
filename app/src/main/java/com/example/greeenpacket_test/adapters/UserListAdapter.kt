@@ -104,14 +104,14 @@ private class UserDiffCallback : DiffUtil.ItemCallback<User>() {
 
     override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
         return oldItem.userId == newItem.userId
-                && oldItem.emailAddress== oldItem.emailAddress
-                && oldItem.employeeAge== oldItem.employeeAge
-                && oldItem.jobTitleName== oldItem.jobTitleName
-                && oldItem.firstName== oldItem.firstName
-                && oldItem.lastName== oldItem.lastName
-                && oldItem.preferredFullName== oldItem.preferredFullName
-                && oldItem.phoneNumber== oldItem.phoneNumber
-                && oldItem.region== oldItem.region
+                && oldItem.emailAddress == oldItem.emailAddress
+                && oldItem.employeeAge == oldItem.employeeAge
+                && oldItem.jobTitleName == oldItem.jobTitleName
+                && oldItem.firstName == oldItem.firstName
+                && oldItem.lastName == oldItem.lastName
+                && oldItem.preferredFullName == oldItem.preferredFullName
+                && oldItem.phoneNumber == oldItem.phoneNumber
+                && oldItem.region == oldItem.region
                 && oldItem.employeeCode.toString() == oldItem.employeeCode.toString()
                 && oldItem.duties.toString() == oldItem.duties.toString()
     }
