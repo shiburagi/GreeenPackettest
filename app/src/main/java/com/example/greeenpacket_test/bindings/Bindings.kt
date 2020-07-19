@@ -20,7 +20,7 @@ fun loadAvatar(view: ImageView, url: String?, placeholder: String?) {
 }
 
 @BindingAdapter("show")
-fun hide(view: View, show: Boolean) {
+fun show(view: View, show: Boolean) {
     view.visibility = if (show) View.VISIBLE else View.GONE
 }
 
@@ -43,12 +43,12 @@ fun message(view: MessageView, status: Status?, retry: View.OnClickListener) {
 }
 
 @BindingAdapter("value")
-fun setText(view: EditText, text: String?) {
+fun setValue(view: EditText, text: String?) {
     (view.parent as View).visibility = if (text?.isEmpty() != false) View.GONE else View.VISIBLE
     (view as TextView).text = text
 }
 @BindingAdapter("value")
-fun setText(view: TextView, text: String?) {
+fun setValue(view: TextView, text: String?) {
     view.visibility = if (text?.isEmpty() != false) View.GONE else View.VISIBLE
     view.text = text
 }
