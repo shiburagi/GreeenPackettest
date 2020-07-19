@@ -31,7 +31,7 @@ val Double.byte: Double
 fun ImageView.loadAvatar(url: String, placeholder: String) {
     val drawable = TextDrawable.builder().beginConfig().width(60.dp).height(60.dp).endConfig()
         .buildRound(
-            placeholder.substring(0, 1),
+            if (placeholder.isEmpty()) "-" else placeholder.substring(0, 1),
             ColorGenerator.MATERIAL.getColor(placeholder)
         )
     Glide.with(context).load(url)

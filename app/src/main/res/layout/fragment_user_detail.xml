@@ -1,301 +1,331 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".views.UserDetailFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <data>
+
+        <variable
+            name="user"
+            type="com.example.greeenpacket_test.models.User" />
+
+        <variable
+            name="superior"
+            type="com.example.greeenpacket_test.models.User" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="16dp" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imageView_avatar"
-            android:layout_width="120dp"
-            android:layout_height="120dp" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="16dp" />
-
-        <TextView
-            android:id="@+id/textView_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textView_age"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/layout_team_lead"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:cardBackgroundColor="@color/colorPrimary"
-            app:cardCornerRadius="14dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginRight="12dp"
-                android:layout_marginBottom="4dp"
-                android:text="@string/team_lead"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse" />
-        </androidx.cardview.widget.CardView>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_margin="16dp"
-            android:background="@android:color/darker_gray" />
+        tools:context=".views.UserDetailFragment">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputLayout
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="16dp" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageView_avatar"
+                placeholder="@{user.displayName}"
+                url="@{user.profileImage}"
+                android:layout_width="120dp"
+                android:layout_height="120dp" />
+
+            <Space
                 android:layout_width="match_parent"
+                android:layout_height="16dp" />
+
+            <TextView
+                android:id="@+id/textView_name"
+                value="@{user.displayName}"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:hint="@string/job_title"
-                app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:textStyle="bold" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textView_job_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#00000000"
-                    android:focusable="false"
-                    android:gravity="top|start"
-                    android:inputType="textMultiLine"
-                    android:maxLines="100"
-                    android:minLines="1"
-                    android:scrollbars="vertical"
-                    android:singleLine="false"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textView_age"
+                value="@{user.displayAge(context)}"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:hint="@string/first_name"
-                app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textView_first_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#00000000"
-                    android:focusable="false"
-                    android:gravity="top|start"
-                    android:inputType="textMultiLine"
-                    android:maxLines="100"
-                    android:minLines="1"
-                    android:scrollbars="vertical"
-                    android:singleLine="false"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/layout_team_lead"
+                show="@{user.teamLead}"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:hint="@string/last_name"
-                app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
+                android:layout_marginTop="8dp"
+                app:cardBackgroundColor="@color/colorPrimary"
+                app:cardCornerRadius="14dp">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textView_last_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#00000000"
-                    android:focusable="false"
-                    android:gravity="top|start"
-                    android:inputType="textMultiLine"
-                    android:maxLines="100"
-                    android:minLines="1"
-                    android:scrollbars="vertical"
-                    android:singleLine="false"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:hint="@string/employee_code"
-                app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textView_employee_code"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#00000000"
-                    android:focusable="false"
-                    android:gravity="top|start"
-                    android:inputType="textMultiLine"
-                    android:maxLines="100"
-                    android:minLines="1"
-                    android:scrollbars="vertical"
-                    android:singleLine="false"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:hint="@string/email"
-                app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textView_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#00000000"
-                    android:focusable="false"
-                    android:gravity="top|start"
-                    android:inputType="textMultiLine"
-                    android:maxLines="100"
-                    android:minLines="1"
-                    android:scrollbars="vertical"
-                    android:singleLine="false"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:hint="@string/phone_no"
-                app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textView_phone_no"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#00000000"
-                    android:focusable="false"
-                    android:gravity="top|start"
-                    android:inputType="textMultiLine"
-                    android:maxLines="100"
-                    android:minLines="1"
-                    android:scrollbars="vertical"
-                    android:singleLine="false"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:hint="@string/region"
-                app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textView_region"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#00000000"
-                    android:focusable="false"
-                    android:gravity="top|start"
-                    android:inputType="textMultiLine"
-                    android:maxLines="100"
-                    android:minLines="1"
-                    android:scrollbars="vertical"
-                    android:singleLine="false"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:hint="@string/user_id"
-                app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textView_user_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#00000000"
-                    android:focusable="false"
-                    android:gravity="top|start"
-                    android:inputType="textMultiLine"
-                    android:maxLines="100"
-                    android:minLines="1"
-                    android:scrollbars="vertical"
-                    android:singleLine="false"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:hint="@string/duties"
-                app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textView_duties"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#00000000"
-                    android:focusable="false"
-                    android:gravity="top|start"
-                    android:inputType="textMultiLine"
-                    android:maxLines="100"
-                    android:minLines="1"
-                    android:scrollbars="vertical"
-                    android:singleLine="false"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:hint="@string/report_to"
-                app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textView_report_to"
+                <TextView
+                    android:text="@string/team_lead"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#00000000"
-                    android:drawableEnd="@drawable/ic_baseline_arrow_forward_24"
-                    android:drawableRight="@drawable/ic_baseline_arrow_forward_24"
-                    android:drawablePadding="8dp"
-                    android:focusable="false"
-                    android:gravity="top|start"
-                    android:inputType="textMultiLine"
-                    android:maxLines="100"
-                    android:minLines="1"
-                    android:scrollbars="vertical"
-                    android:singleLine="false"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginBottom="4dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse" />
+            </androidx.cardview.widget.CardView>
 
-            </com.google.android.material.textfield.TextInputLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_margin="16dp"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:hint="@string/job_title"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textView_job_title"
+                        value="@{user.jobTitleName}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:focusable="false"
+                        android:gravity="top|start"
+                        android:inputType="textMultiLine"
+                        android:maxLines="100"
+                        android:minLines="1"
+                        android:scrollbars="vertical"
+                        android:singleLine="false"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:hint="@string/first_name"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textView_first_name"
+                        value="@{user.firstName}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:focusable="false"
+                        android:gravity="top|start"
+                        android:inputType="textMultiLine"
+                        android:maxLines="100"
+                        android:minLines="1"
+                        android:scrollbars="vertical"
+                        android:singleLine="false"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:hint="@string/last_name"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textView_last_name"
+                        value="@{user.lastName}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:focusable="false"
+                        android:gravity="top|start"
+                        android:inputType="textMultiLine"
+                        android:maxLines="100"
+                        android:minLines="1"
+                        android:scrollbars="vertical"
+                        android:singleLine="false"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:hint="@string/employee_code"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textView_employee_code"
+                        value="@{user.employeeCode.toString()}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:focusable="false"
+                        android:gravity="top|start"
+                        android:inputType="textMultiLine"
+                        android:maxLines="100"
+                        android:minLines="1"
+                        android:scrollbars="vertical"
+                        android:singleLine="false"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:hint="@string/email"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textView_email"
+                        value="@{user.emailAddress}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:focusable="false"
+                        android:gravity="top|start"
+                        android:inputType="textMultiLine"
+                        android:maxLines="100"
+                        android:minLines="1"
+                        android:scrollbars="vertical"
+                        android:singleLine="false"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:hint="@string/phone_no"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textView_phone_no"
+                        value="@{user.phoneNumber}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:focusable="false"
+                        android:gravity="top|start"
+                        android:inputType="textMultiLine"
+                        android:maxLines="100"
+                        android:minLines="1"
+                        android:scrollbars="vertical"
+                        android:singleLine="false"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:hint="@string/region"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textView_region"
+                        value="@{user.region}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:focusable="false"
+                        android:gravity="top|start"
+                        android:inputType="textMultiLine"
+                        android:maxLines="100"
+                        android:minLines="1"
+                        android:scrollbars="vertical"
+                        android:singleLine="false"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:hint="@string/user_id"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textView_user_id"
+                        value="@{user.userId}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:focusable="false"
+                        android:gravity="top|start"
+                        android:inputType="textMultiLine"
+                        android:maxLines="100"
+                        android:minLines="1"
+                        android:scrollbars="vertical"
+                        android:singleLine="false"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:hint="@string/duties"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textView_duties"
+                        value="@{user.duties.toString()}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:focusable="false"
+                        android:gravity="top|start"
+                        android:inputType="textMultiLine"
+                        android:maxLines="100"
+                        android:minLines="1"
+                        android:scrollbars="vertical"
+                        android:singleLine="false"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                </com.google.android.material.textfield.TextInputLayout>
 
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minWidth="120dp"
+                    android:layout_marginBottom="8dp"
+                    android:hint="@string/report_to"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textView_report_to"
+                        value="@{superior.displayName}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:drawableEnd="@drawable/ic_baseline_arrow_forward_24"
+                        android:drawableRight="@drawable/ic_baseline_arrow_forward_24"
+                        android:drawablePadding="8dp"
+                        android:focusable="false"
+                        android:gravity="top|start"
+                        android:inputType="textMultiLine"
+                        android:maxLines="100"
+                        android:minLines="1"
+                        android:scrollbars="vertical"
+                        android:singleLine="false"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
-</androidx.core.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
+</layout>

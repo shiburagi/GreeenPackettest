@@ -1,8 +1,11 @@
 package com.example.greeenpacket_test.bindings
 
+import android.util.Log
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.example.greeenpacket_test.R
 import com.example.greeenpacket_test.components.MessageView
@@ -12,8 +15,8 @@ import com.shiburagi.utility.loadAvatar
 
 
 @BindingAdapter("url", "placeholder")
-fun loadAvatar(view: ImageView, url: String, placeholder: String) {
-    view.loadAvatar(url, placeholder)
+fun loadAvatar(view: ImageView, url: String?, placeholder: String?) {
+    view.loadAvatar(url ?: "", placeholder ?: "")
 }
 
 @BindingAdapter("show")
@@ -37,4 +40,15 @@ fun message(view: MessageView, status: Status?, retry: View.OnClickListener) {
         view.set(R.string.something_went_wrong, R.string.something_went_wrong_message)
 
     view.setOnRetryClickListener(retry)
+}
+
+@BindingAdapter("value")
+fun setText(view: EditText, text: String?) {
+    (view.parent as View).visibility = if (text?.isEmpty() != false) View.GONE else View.VISIBLE
+    (view as TextView).text = text
+}
+@BindingAdapter("value")
+fun setText(view: TextView, text: String?) {
+    view.visibility = if (text?.isEmpty() != false) View.GONE else View.VISIBLE
+    view.text = text
 }
