@@ -27,7 +27,7 @@ val Double.byte: Double
     get() = this * 1024.0.pow(2.0)
 
 
-fun ImageView.load(url: String, placeholder: String) {
+fun ImageView.loadAvatar(url: String, placeholder: String) {
     val drawable = TextDrawable.builder().beginConfig().width(60.dp).height(60.dp).endConfig()
         .buildRound(
             placeholder.substring(0, 1) ?: "",

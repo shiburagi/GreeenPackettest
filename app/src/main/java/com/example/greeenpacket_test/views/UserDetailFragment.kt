@@ -13,7 +13,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.greeenpacket_test.R
 import com.example.greeenpacket_test.models.User
 import com.example.greeenpacket_test.viewmodels.UserListViewModel
-import com.shiburagi.utility.load
+import com.shiburagi.utility.loadAvatar
 import kotlinx.android.synthetic.main.fragment_user_detail.*
 
 
@@ -54,7 +54,7 @@ class UserDetailFragment : Fragment() {
      * a method to assign value on all textField and editText
      */
     private fun populateData() {
-        imageView_avatar.load(user.profileImage ?: "", user.displayName)
+        imageView_avatar.loadAvatar(user.profileImage ?: "", user.displayName)
         layout_team_lead.visibility = if (user.isTeamLead) View.VISIBLE else View.GONE
 
         textView_name.text = user.firstName

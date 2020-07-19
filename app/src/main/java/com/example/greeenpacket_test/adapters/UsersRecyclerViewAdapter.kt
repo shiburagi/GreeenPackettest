@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.greeenpacket_test.R
 import com.example.greeenpacket_test.models.User
 import com.example.greeenpacket_test.views.UserListFragmentDirections
-import com.shiburagi.utility.load
+import com.shiburagi.utility.loadAvatar
 import kotlinx.android.synthetic.main.view_user.view.*
 
 /**
@@ -38,7 +38,7 @@ class UsersRecyclerViewAdapter() :
         val displayName: String = user.displayName
         holder.itemView.textView_name.text = displayName
         holder.itemView.textView_age.text = user.displayAge(holder.itemView.context)
-        holder.itemView.imageView_avatar.load(
+        holder.itemView.imageView_avatar.loadAvatar(
             user.profileImage ?: "",
             displayName
         )
