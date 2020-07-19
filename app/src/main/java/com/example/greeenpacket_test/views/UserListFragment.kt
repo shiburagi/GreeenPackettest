@@ -37,6 +37,7 @@ class UserListFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentUserListBinding>(
             inflater, R.layout.fragment_user_list, container, false
         ).apply {
+            // Binding
             status = viewModel.getStatus()
             retry = View.OnClickListener {
                 viewModel.loadUsers()

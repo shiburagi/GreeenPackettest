@@ -62,16 +62,22 @@ class UserDetailFragment : Fragment() {
                 container,
                 false
             ).apply {
+                // Binding
                 this.user = user
                 this.superior = superiorUser
-
+                lifecycleOwner = this@UserDetailFragment
             }
-
-        ViewCompat.setTransitionName(binding.root.imageView_avatar, "image_${user.userId}")
-        ViewCompat.setTransitionName(binding.root.textView_name, "name_${user.userId}")
-        ViewCompat.setTransitionName(binding.root.textView_age, "age_${user.userId}")
-
+        prepareTransitionName(binding.root, user)
         return binding.root
+    }
+
+    /**
+     * set transition name to all animated view
+     */
+    private fun prepareTransitionName(view: View, user: User) {
+        ViewCompat.setTransitionName(view.imageView_avatar, "image_${user.userId}")
+        ViewCompat.setTransitionName(view.textView_name, "name_${user.userId}")
+        ViewCompat.setTransitionName(view.textView_age, "age_${user.userId}")
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

@@ -57,31 +57,41 @@ class UsersRecyclerViewAdapter() :
         private val nameView: TextView = binding.root.textView_name
         private val ageView: TextView = binding.root.textView_age
 
+        /**
+         * Bind the user data to view
+         * @param value [User]
+         */
         fun bind(value: User) {
-            ViewCompat.setTransitionName(avatarView, "image_${value.userId}")
-            ViewCompat.setTransitionName(nameView, "name_${value.userId}")
-            ViewCompat.setTransitionName(ageView, "age_${value.userId}")
             with(binding) {
                 this.user = value
+                prepareAnimation(value)
                 this.clickListener = View.OnClickListener {
                     val action =
                         UserListFragmentDirections.actionUserListFragmentToUserDetailFragment(
                             user!!
                         )
+                    val extras = FragmentNavigatorExtras(
+                        avatarView to ViewCompat.getTransitionName(
+                            avatarView
+                        )!!,
+                        nameView to ViewCompat.getTransitionName(nameView)!!,
+                        ageView to ViewCompat.getTransitionName(ageView)!!
+                    )
                     itemView.findNavController()
-                        .navigate(
-                            action,
-                            FragmentNavigatorExtras(
-                                avatarView to ViewCompat.getTransitionName(
-                                    avatarView
-                                )!!,
-                                nameView to ViewCompat.getTransitionName(nameView)!!,
-                                ageView to ViewCompat.getTransitionName(ageView)!!
-                            )
-                        )
+                        .navigate(action, extras)
                 }
                 executePendingBindings()
             }
+        }
+
+        /**
+         * set transition name to all view
+         * @param user [User]
+         */
+        private fun prepareAnimation(user: User) {
+            ViewCompat.setTransitionName(avatarView, "image_${user.userId}")
+            ViewCompat.setTransitionName(nameView, "name_${user.userId}")
+            ViewCompat.setTransitionName(ageView, "age_${user.userId}")
         }
     }
 }
